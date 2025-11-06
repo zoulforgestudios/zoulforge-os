@@ -4,12 +4,29 @@ console.log("Loaded: <firebase.js>");
 console.log("Loaded: core/firebase.js");
 
 // ---- Replace with your Firebase console config (Project Settings > Web app) ----
-const ZOULFORGE_FIREBASE_CONFIG = {
-  apiKey: "PASTE_API_KEY",
-  authDomain: "your-app.firebaseapp.com",
-  projectId: "your-project-id",
-  appId: "your-app-id"
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCqpviaXc_tqr4n0v17qEsltmPtCh1kl6M",
+  authDomain: "zoulforge-os.firebaseapp.com",
+  projectId: "zoulforge-os",
+  storageBucket: "zoulforge-os.firebasestorage.app",
+  messagingSenderId: "390386296141",
+  appId: "1:390386296141:web:1998c47555396642ba8304",
+  measurementId: "G-TTP7GGHWN8"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+;
 // -----------------------------------------------------------------------------
 
 // Safe init (don’t double init if scripts reload)

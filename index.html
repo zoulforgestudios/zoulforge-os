@@ -28,47 +28,125 @@
   if (app) app.innerHTML = "<p style='opacity:.7'>Index loaded ✅</p>";
 </script>
 <body>
+  <!-- Top bar -->
+  <header id="topbar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #222;background:#0a0a0a;position:sticky;top:0;z-index:50">
+    <div style="display:flex;gap:10px;align-items:center">
+      <button id="burgerToggle" aria-label="menu" style="background:#161616;border:1px solid #222;color:#ccc;border-radius:8px;padding:8px 10px;cursor:pointer">☰</button>
+      <strong style="color:#b46bff">ZoulForge OS</strong>
+    </div>
+    <div id="authArea" style="display:flex;gap:8px;align-items:center">
+      <span id="userBadge" style="opacity:.8">Guest</span>
+      <button id="googleLoginBtn" style="background:#1a1a1a;border:1px solid #333;color:#ddd;border-radius:8px;padding:6px 10px;cursor:pointer">Sign in</button>
+      <button id="googleLogoutBtn" style="display:none;background:#1a1a1a;border:1px solid #333;color:#ddd;border-radius:8px;padding:6px 10px;cursor:pointer">Sign out</button>
+    </div>
+  </header>
 
-  <!-- Burger Menu -->
-  <div id="burgerMenu"></div>
+  <!-- Slide-out Settings -->
+  <aside id="settingsDrawer" style="position:fixed;inset:0 0 0 auto;width:340px;background:#0c0c0f;border-left:1px solid #1f1f26;transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column">
+    <div style="padding:14px 16px;border-bottom:1px solid #1f1f26;display:flex;justify-content:space-between;align-items:center">
+      <strong style="color:#b46bff">Settings</strong>
+      <button id="closeDrawer" style="background:#161616;border:1px solid #222;color:#ccc;border-radius:8px;padding:6px 10px;cursor:pointer">✕</button>
+    </div>
+    <div id="settingsBody" style="padding:14px 16px;display:flex;flex-direction:column;gap:14px;overflow:auto">
+      <!-- settings.js injects content -->
+    </div>
+  </aside>
 
-  <!-- Main Screen -->
-  <div id="app"></div>
-  <!-- Put these right ABOVE your existing <script src="core/zoul-core.js"> lines -->
-<!-- Firebase (compat CDN so it works without bundlers) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+  <!-- Main app -->
+  <main id="app" style="padding:16px 16px 100px">
+    <!-- Home / Hero -->
+    <section id="home-section" style="max-width:960px;margin:24px auto">
+      <h1 style="margin:0 0 8px;color:#b46bff;">Welcome to ZoulForge</h1>
+      <p style="margin:0 0 16px;opacity:.85">Say “<i>open chat</i>”, “<i>open tasks</i>”, “<i>open SOS</i>” or click the mic 🎙️ below. Use the ☰ menu for Settings.</p>
 
-<!-- Add this simple header (inside <body>, above #app) -->
-<header
- id="topbar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #222;background:#0a0a0a;position:sticky;top:0;z-index:50">
-  <div style="display:flex;gap:10px;align-items:center">
-    <button id="burgerToggle" aria-label="menu" style="background:#161616;border:1px solid #222;color:#ccc;border-radius:8px;padding:8px 10px;cursor:pointer">☰</button>
-    <strong style="color:#b46bff">ZoulForge OS</strong>
-  </div>
-  <div id="authArea" style="display:flex;gap:8px;align-items:center">
-    <span id="userBadge" style="opacity:.8">Guest</span>
-    <button id="googleLoginBtn" style="background:#1a1a1a;border:1px solid #333;color:#ddd;border-radius:8px;padding:6px 10px;cursor:pointer">Sign in</button>
-    <button id="googleLogoutBtn" style="display:none;background:#1a1a1a;border:1px solid #333;color:#ddd;border-radius:8px;padding:6px 10px;cursor:pointer">Sign out</button>
-  </div>
-</header>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1 1 280px;background:#0f0f14;border:1px solid #1f1f26;border-radius:12px;padding:14px">
+          <h3 style="margin:0 0 6px">Zoul Voice</h3>
+          <div id="voiceStatus" style="font-size:.95rem;opacity:.85">Idle</div>
+          <button id="heroMic" style="margin-top:10px;background:#2a1a44;border:1px solid #4b2d7f;color:#ddd;padding:10px 14px;border-radius:10px;cursor:pointer">🎙️ Start Listening</button>
+        </div>
 
-<!-- Slide-out Settings (the burger menu will open this) -->
-<aside id="settingsDrawer" style="position:fixed;inset:0 0 0 auto;width:340px;background:#0c0c0f;border-left:1px solid #1f1f26;transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column">
-  <div style="padding:14px 16px;border-bottom:1px solid #1f1f26;display:flex;justify-content:space-between;align-items:center">
-    <strong style="color:#b46bff">Settings</strong>
-    <button id="closeDrawer" style="background:#161616;border:1px solid #222;color:#ccc;border-radius:8px;padding:6px 10px;cursor:pointer">✕</button>
-  </div>
-  <div id="settingsBody" style="padding:14px 16px;display:flex;flex-direction:column;gap:14px;overflow:auto">
-    <!-- toggles will be injected by core/settings.js -->
-  </div>
-</aside>
+        <div style="flex:1 1 280px;background:#0f0f14;border:1px solid #1f1f26;border-radius:12px;padding:14px">
+          <h3 style="margin:0 0 6px">Quick Links</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="quick-link" data-target="#chat-section">💬 Chat</button>
+            <button class="quick-link" data-target="#planner-section">📅 Tasks</button>
+            <button class="quick-link" data-target="#sos-section">🚨 SOS</button>
+            <button id="openSettingsQL" class="quick-link">⚙️ Settings</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <script src="core/zoul-core.js"></script>
+    <!-- Chat -->
+    <section id="chat-section" style="max-width:960px;margin:24px auto">
+      <h2 style="margin:0 0 10px;">💬 AI Chat</h2>
+      <select id="aiSelector" style="background:#111;border:1px solid #222;color:#ddd;padding:8px;border-radius:8px;margin-bottom:10px">
+        <option value="zoul">Zoul — Core</option>
+        <option value="nythera">Nythera — Creation</option>
+        <option value="abyzor">Abyzor — Destruction</option>
+        <option value="voltrix">Voltrix — Balance</option>
+        <option value="verse">Verse — Life Spirit</option>
+      </select>
+      <div id="chatBox" style="border:1px solid #1f1f26;background:#0f0f14;height:240px;overflow:auto;border-radius:10px;padding:10px"></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <input id="userInput" type="text" placeholder="Type your message…" style="flex:1;background:#111;border:1px solid #222;color:#ddd;padding:10px;border-radius:10px">
+        <button id="sendBtn" style="background:#1a1a1a;border:1px solid #333;color:#ddd;padding:10px 14px;border-radius:10px;cursor:pointer">Send</button>
+      </div>
+    </section>
 
-  <!-- Bottom Bar -->
+    <!-- Tasks -->
+    <section id="planner-section" style="max-width:960px;margin:24px auto">
+      <h2 style="margin:0 0 10px;">📅 Task Planner</h2>
+      <form id="taskForm" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+        <input id="taskTitle" type="text" placeholder="Task title" required style="background:#111;border:1px solid #222;color:#ddd;padding:10px;border-radius:10px;flex:1 1 220px">
+        <input id="taskDate" type="date" style="background:#111;border:1px solid #222;color:#ddd;padding:10px;border-radius:10px">
+        <input id="taskTime" type="time" style="background:#111;border:1px solid #222;color:#ddd;padding:10px;border-radius:10px">
+        <select id="taskPriority" style="background:#111;border:1px solid #222;color:#ddd;padding:10px;border-radius:10px">
+          <option value="low">Low</option>
+          <option value="normal" selected>Normal</option>
+          <option value="high">High</option>
+        </select>
+        <button type="submit" style="background:#1a1a1a;border:1px solid #333;color:#ddd;padding:10px 14px;border-radius:10px;cursor:pointer">Add</button>
+      </form>
+      <div id="taskList" style="margin-top:10px;border:1px solid #1f1f26;background:#0f0f14;border-radius:10px;padding:10px;min-height:120px">No tasks yet</div>
+    </section>
+
+    <!-- SOS -->
+    <section id="sos-section" style="max-width:960px;margin:24px auto">
+      <h2 style="margin:0 0 10px;">🚨 SOS (Prototype)</h2>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <input id="emergencyContact" type="text" placeholder="Emergency contact (phone/email/note)" style="flex:1 1 260px;background:#111;border:1px solid #222;color:#ddd;padding:10px;border-radius:10px">
+        <button id="saveContactBtn" style="background:#1a1a1a;border:1px solid #333;color:#ddd;padding:10px 14px;border-radius:10px;cursor:pointer">Save Contact</button>
+        <button id="sosBtn" class="big-sos" style="background:#5a1414;border:1px solid #7a1e1e;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer">ONE-CLICK SOS</button>
+      </div>
+      <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap">
+        <div style="flex:1 1 320px">
+          <button id="getLocationBtn" style="background:#1a1a1a;border:1px solid #333;color:#ddd;padding:8px 12px;border-radius:8px;cursor:pointer">Share my approximate location</button>
+          <div id="locationOutput" style="margin-top:8px;opacity:.85">No location captured</div>
+        </div>
+        <div style="flex:1 1 320px">
+          <h4 style="margin:0 0 6px">SOS Log</h4>
+          <div id="sosLog" style="border:1px solid #1f1f26;background:#0f0f14;border-radius:10px;padding:10px;height:160px;overflow:auto">No events yet</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activity -->
+    <section id="util-section" style="max-width:960px;margin:24px auto">
+      <h2 style="margin:0 0 10px;">🗂️ Activity</h2>
+      <div id="activityLog" style="border:1px solid #1f1f26;background:#0f0f14;border-radius:10px;padding:10px;min-height:100px">No activity yet</div>
+    </section>
+  </main>
+
+  <!-- Bottom bar -->
   <div id="bottomBar"></div>
 
+  <!-- Firebase CDN (before our scripts) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+
+  <!-- Core & Features -->
   <script src="core/zoul-core.js"></script>
   <script src="core/shadow-reaper.js"></script>
   <script src="core/voice.js"></script>
@@ -85,6 +163,6 @@
   <script src="ui/animations.js"></script>
 
   <script src="script.js"></script>
-
 </body>
 </html>
+
