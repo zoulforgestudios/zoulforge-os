@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZoulForge OS</title>
+  <link rel="stylesheet" href="style.css">
+
+<script src="core/shadow-reaper.js"></script>
+<script src="core/voice.js"></script>
+<script src="core/settings.js"></script>
+<script src="core/firebase.js"></script>
+
+<script src="features/sos.js"></script>
+<script src="features/tasks.js"></script>
+<script src="features/chat.js"></script>
+<script src="features/ai-modes.js"></script>
+
+<script src="ui/bottom-bar.js"></script>
+<script src="ui/burger-menu.js"></script>
+<script src="ui/animations.js"></script>
+
+<script src="script.js"></script>
+
+</head>
+<script>
+  console.log("INDEX OK");
+  const app = document.getElementById("app");
+  if (app) app.innerHTML = "<p style='opacity:.7'>Index loaded ✅</p>";
+</script>
+<body>
+
+  <!-- Burger Menu -->
+  <div id="burgerMenu"></div>
+
+  <!-- Main Screen -->
+  <div id="app"></div>
+  <!-- Put these right ABOVE your existing <script src="core/zoul-core.js"> lines -->
+<!-- Firebase (compat CDN so it works without bundlers) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+
+<!-- Add this simple header (inside <body>, above #app) -->
+<header
+ id="topbar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #222;background:#0a0a0a;position:sticky;top:0;z-index:50">
+  <div style="display:flex;gap:10px;align-items:center">
+    <button id="burgerToggle" aria-label="menu" style="background:#161616;border:1px solid #222;color:#ccc;border-radius:8px;padding:8px 10px;cursor:pointer">☰</button>
+    <strong style="color:#b46bff">ZoulForge OS</strong>
+  </div>
+  <div id="authArea" style="display:flex;gap:8px;align-items:center">
+    <span id="userBadge" style="opacity:.8">Guest</span>
+    <button id="googleLoginBtn" style="background:#1a1a1a;border:1px solid #333;color:#ddd;border-radius:8px;padding:6px 10px;cursor:pointer">Sign in</button>
+    <button id="googleLogoutBtn" style="display:none;background:#1a1a1a;border:1px solid #333;color:#ddd;border-radius:8px;padding:6px 10px;cursor:pointer">Sign out</button>
+  </div>
+</header>
+
+<!-- Slide-out Settings (the burger menu will open this) -->
+<aside id="settingsDrawer" style="position:fixed;inset:0 0 0 auto;width:340px;background:#0c0c0f;border-left:1px solid #1f1f26;transform:translateX(100%);transition:.25s;z-index:60;display:flex;flex-direction:column">
+  <div style="padding:14px 16px;border-bottom:1px solid #1f1f26;display:flex;justify-content:space-between;align-items:center">
+    <strong style="color:#b46bff">Settings</strong>
+    <button id="closeDrawer" style="background:#161616;border:1px solid #222;color:#ccc;border-radius:8px;padding:6px 10px;cursor:pointer">✕</button>
+  </div>
+  <div id="settingsBody" style="padding:14px 16px;display:flex;flex-direction:column;gap:14px;overflow:auto">
+    <!-- toggles will be injected by core/settings.js -->
+  </div>
+</aside>
+
+  <script src="core/zoul-core.js"></script>
+
+  <!-- Bottom Bar -->
+  <div id="bottomBar"></div>
+
+  <script src="core/zoul-core.js"></script>
+  <script src="core/shadow-reaper.js"></script>
+  <script src="core/voice.js"></script>
+  <script src="core/settings.js"></script>
+  <script src="core/firebase.js"></script>
+
+  <script src="features/sos.js"></script>
+  <script src="features/tasks.js"></script>
+  <script src="features/chat.js"></script>
+  <script src="features/ai-modes.js"></script>
+
+  <script src="ui/bottom-bar.js"></script>
+  <script src="ui/burger-menu.js"></script>
+  <script src="ui/animations.js"></script>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
