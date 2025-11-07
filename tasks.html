@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ZoulForge — Tasks</title>
+<link rel="stylesheet" href="style.css"/>
+</head><body data-page="tasks">
+<header class="zf-top">
+  <a class="zf-logo" href="index.html">ZoulForge</a>
+  <div class="zf-actions">
+    <button id="burgerToggle" class="btn">☰</button>
+    <span id="userBadge">Guest</span>
+    <button id="googleLoginBtn" class="btn">Sign in</button>
+    <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+  </div>
+</header>
+
+<aside id="settingsDrawer" class="zf-drawer"><div class="zf-drawer-head">
+  <strong>Settings</strong><button id="closeDrawer" class="btn">✕</button>
+</div><div id="settingsBody" class="zf-drawer-body"></div></aside>
+
+<main class="zf-main">
+  <section class="container">
+    <h1>Task Planner</h1>
+    <form id="taskForm" class="row wrap">
+      <input id="taskTitle" class="input" placeholder="Task title" required/>
+      <input id="taskDate" type="date" class="input"/>
+      <input id="taskTime" type="time" class="input"/>
+      <select id="taskPriority" class="input">
+        <option value="low">Low</option><option value="normal" selected>Normal</option><option value="high">High</option>
+      </select>
+      <button class="btn">Add</button>
+    </form>
+    <div id="taskList" class="panel">No tasks yet</div>
+  </section>
+</main>
+
+<div id="bottomBar"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+
+<script src="core/zoul-core.js"></script>
+<script src="core/shadow-reaper.js"></script>
+<script src="core/voice.js"></script>
+<script src="core/settings.js"></script>
+<script src="core/firebase.js"></script>
+
+<script src="features/tasks.js"></script>
+<script src="ui/bottom-bar.js"></script>
+<script src="ui/burger-menu.js"></script>
+<script src="ui/animations.js"></script>
+<script src="script.js"></script>
+</body></html>

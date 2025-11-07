@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ZoulForge — Chat</title>
+<link rel="stylesheet" href="style.css"/>
+</head><body data-page="chat">
+<header class="zf-top">
+  <a class="zf-logo" href="index.html">ZoulForge</a>
+  <div class="zf-actions">
+    <button id="burgerToggle" class="btn">☰</button>
+    <span id="userBadge">Guest</span>
+    <button id="googleLoginBtn" class="btn">Sign in</button>
+    <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+  </div>
+</header>
+
+<aside id="settingsDrawer" class="zf-drawer"><div class="zf-drawer-head">
+  <strong>Settings</strong><button id="closeDrawer" class="btn">✕</button>
+</div><div id="settingsBody" class="zf-drawer-body"></div></aside>
+
+<main class="zf-main">
+  <section class="container">
+    <h1>Chat</h1>
+
+    <!-- Tabs: AI Chat / Users -->
+    <div class="tabs">
+      <button class="tab active" data-tab="ai">AI</button>
+      <button class="tab" data-tab="dm">Users</button>
+    </div>
+
+    <!-- AI Chat -->
+    <div id="tab-ai">
+      <div class="row">
+        <select id="aiSelector" class="input">
+          <option value="zoul">Zoul — Core</option>
+          <option value="veil">Veil — Stealth OS</option>
+          <option value="nythera">Nythera — Creation</option>
+          <option value="abyzor">Abyzor — Destruction</option>
+          <option value="voltrix">Voltrix — Balance</option>
+          <option value="verse">Verse — Life Spirit</option>
+        </select>
+        <button id="aiMic" class="btn primary">🎙️</button>
+      </div>
+      <div id="chatBox" class="chatbox"></div>
+      <div class="row">
+        <input id="userInput" class="input grow" placeholder="Type your message…"/>
+        <button id="sendBtn" class="btn">Send</button>
+      </div>
+    </div>
+
+    <!-- User DMs (prototype: localStorage / Firebase-ready hook) -->
+    <div id="tab-dm" style="display:none">
+      <div class="row">
+        <select id="contactSelector" class="input">
+          <option value="demo-veil">VEIL (system)</option>
+          <option value="demo-tek">Tek (demo)</option>
+          <option value="demo-lyra">Lyra (demo)</option>
+        </select>
+        <button id="newChatBtn" class="btn">New chat</button>
+      </div>
+      <div id="dmBox" class="chatbox"></div>
+      <div class="row">
+        <input id="dmInput" class="input grow" placeholder="Message user…"/>
+        <button id="dmSend" class="btn">Send</button>
+      </div>
+      <small class="muted">Prototype: stored locally. Firebase realtime can be added later.</small>
+    </div>
+  </section>
+</main>
+
+<div id="bottomBar"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+
+<!-- Shared scripts -->
+<script src="core/zoul-core.js"></script>
+<script src="core/shadow-reaper.js"></script>
+<script src="core/voice.js"></script>
+<script src="core/settings.js"></script>
+<script src="core/firebase.js"></script>
+
+<script src="features/chat.js"></script>
+<script src="ui/bottom-bar.js"></script>
+<script src="ui/burger-menu.js"></script>
+<script src="ui/animations.js"></script>
+<script src="script.js"></script>
+
+<script>
+// tabs
+const tabs = document.querySelectorAll(".tab");
+tabs.forEach(t=>t.onclick = ()=>{
+  tabs.forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+  document.getElementById("tab-ai").style.display = t.dataset.tab==="ai"?"block":"none";
+  document.getElementById("tab-dm").style.display = t.dataset.tab==="dm"?"block":"none";
+});
+// DM prototype
+(function dmProto(){
+  const dmBox = document.getElementById("dmBox");
+  const dmInput = document.getElementById("dmInput");
+  const dmSend = document.getElementById("dmSend");
+  const contactSel = document.getElementById("contactSelector");
+  const KEY = "zf_dm_" + (contactSel?.value || "demo-veil");
+
+  function load(){ try{ return JSON.parse(localStorage.getItem("zf_dm_"+contactSel.value))||[] }catch{ return [] } }
+  function save(arr){ localStorage.setItem("zf_dm_"+contactSel.value, JSON.stringify(arr)); }
+  function render(){
+    const arr = load(); dmBox.innerHTML = "";
+    arr.forEach(m=>{
+      const p = document.createElement("p");
+      p.textContent = (m.sender==="me"?"🧠 You: ":"👤 ")+m.text;
+      dmBox.appendChild(p);
+    });
+    dmBox.scrollTop = dmBox.scrollHeight;
+  }
+  contactSel.onchange = render;
+  document.getElementById("newChatBtn").onclick = ()=>{ save([]); render(); };
+  dmSend.onclick = ()=>{
+    const t = dmInput.value.trim(); if(!t) return;
+    const arr = load(); arr.push({sender:"me", text:t, ts:Date.now()}); save(arr);
+    dmInput.value=""; render();
+    setTimeout(()=>{ // echo
+      const a2 = load(); a2.push({sender:"them", text:"(auto-reply) Received: "+t, ts:Date.now()}); save(a2); render();
+    }, 600);
+  };
+  render();
+})();
+</script>
+</body></html>

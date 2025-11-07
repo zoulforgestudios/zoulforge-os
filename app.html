@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ZoulForge — Apps</title>
+<link rel="stylesheet" href="style.css"/>
+</head><body data-page="apps">
+<header class="zf-top">
+  <a class="zf-logo" href="index.html">ZoulForge</a>
+  <div class="zf-actions">
+    <button id="burgerToggle" class="btn">☰</button>
+    <span id="userBadge">Guest</span>
+    <button id="googleLoginBtn" class="btn">Sign in</button>
+    <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+  </div>
+</header>
+
+<aside id="settingsDrawer" class="zf-drawer"><div class="zf-drawer-head">
+  <strong>Settings</strong><button id="closeDrawer" class="btn">✕</button>
+</div><div id="settingsBody" class="zf-drawer-body"></div></aside>
+
+<main class="zf-main">
+  <section class="container">
+    <h1>Holographic Apps</h1>
+    <div class="app-grid">
+      <div class="app-card"><div class="holo"></div><span>Zoul Chat</span></div>
+      <div class="app-card"><div class="holo"></div><span>Planner</span></div>
+      <div class="app-card"><div class="holo"></div><span>Media Vault</span></div>
+      <div class="app-card"><div class="holo"></div><span>Scanner</span></div>
+      <div class="app-card"><div class="holo"></div><span>Map Grid</span></div>
+      <div class="app-card"><div class="holo"></div><span>Zoulverse</span></div>
+    </div>
+  </section>
+</main>
+
+<div id="bottomBar"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+
+<script src="core/zoul-core.js"></script>
+<script src="core/shadow-reaper.js"></script>
+<script src="core/voice.js"></script>
+<script src="core/settings.js"></script>
+<script src="core/firebase.js"></script>
+
+<script src="ui/bottom-bar.js"></script>
+<script src="ui/burger-menu.js"></script>
+<script src="ui/animations.js"></script>
+<script src="script.js"></script>
+</body></html>
