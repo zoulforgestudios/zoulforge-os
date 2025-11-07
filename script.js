@@ -10,3 +10,7 @@ document.addEventListener("click", (e)=>{
     drawer.style.transform = "translateX(100%)";
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const drawer = document.getElementById("settingsDrawer");
+  if (drawer) drawer.style.transform = "translateX(100%)"; // force closed on page load
+});
