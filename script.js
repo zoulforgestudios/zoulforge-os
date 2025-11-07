@@ -12,5 +12,5 @@ document.addEventListener("click", (e)=>{
 });
 document.addEventListener("DOMContentLoaded", () => {
   const drawer = document.getElementById("settingsDrawer");
-  if (drawer) drawer.style.transform = "translateX(100%)"; // force closed on page load
+  if (drawer) drawer.style.transform = "translateX(100%)";
 });

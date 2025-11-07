@@ -24,5 +24,5 @@ console.log("Loaded: ui/bottom-bar.js");
   document.getElementById("bb_settings")?.addEventListener("click", ()=>{
     document.getElementById("settingsDrawer").style.transform = "translateX(0%)";
   });
-  
+
 })();

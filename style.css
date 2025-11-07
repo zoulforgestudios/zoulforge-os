@@ -1,3 +1,34 @@
+/* --- Global reset & viewport fix --- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--ds-bg, #000);
+  color: var(--ds-text, #eee);
+}
+* { box-sizing: border-box; }
+
+/* Desktop shell = fixed viewport, inner panels scroll */
+.app-shell {
+  height: 100dvh;            /* better than 100vh on modern browsers */
+  height: 100svh;            /* small viewport on mobile */
+  width: 100vw;
+  display: flex;
+  overflow: hidden;          /* prevent page-level extra scroll gap */
+}
+
+/* Scroll only inside these areas */
+.channels-list, .members-list, .mc-body {
+  overflow: auto;
+}
+
+/* On small screens, let the page scroll normally */
+@media (max-width: 768px){
+  html, body { height: auto; }
+  .app-shell { height: auto; display: block; overflow: visible; }
+  .mc-body { padding-bottom: 90px; } /* room for bottom bar */
+}
+
 /* ==== Discord-like palette ==== */
 :root{
   --ds-blurple:#5865F2;
@@ -71,13 +102,32 @@ body{ color:var(--ds-text) }
 /* Chat box style update */
 .chatbox{ background:#1E1F22; border:1px solid #2b2d31 }
 
-/* Bottom bar → hide on desktop, keep on mobile */
-#bottomBar{ display:none }
-@media (max-width: 768px){
-  .app-shell{ display:block; height:auto }
-  .servers-rail, .channels-panel, .members-rail{ display:none }
-  #bottomBar{ display:flex }
-  .mc-head{ position:sticky; top:0; z-index:5 }
+/* --- Bottom bar: always visible & fixed --- */
+#bottomBar{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 72px;
+  background: #0b0b0f;
+  border-top: 1px solid #1f1f26;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 60;
 }
+
+/* Buttons */
+#bottomBar .bb-btn{
+  background:#16161b;
+  border:1px solid #242433;
+  color:#ddd;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+}
+#bottomBar .bb-btn.round{ border-radius:50%; padding:12px 16px; }
+
+/* Give main content space so it doesn't hide behind bar */
+.mc-body { padding-bottom: 90px; }
+
 
 /* Settings drawer still slides over */
