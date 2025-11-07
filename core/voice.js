@@ -1,3 +1,8 @@
+if (window.ZF_LOADED_VOICE) { console.log("voice.js already loaded (skipped)"); }
+else {
+  window.ZF_LOADED_VOICE = true;
+// ---- existing voice.js code starts below this line ----
+
 // Loaded: core/voice.js
 console.log("Loaded: core/voice.js");
 window.ZF = window.ZF || {};
@@ -7,7 +12,7 @@ const voiceStatusEl = ()=> document.getElementById("voiceStatus");
 const micButtons = ()=> [document.getElementById("heroMic"), document.getElementById("bb_mic")].filter(Boolean);
 
 ZF.voice = {
-  recognizer: SR ? new SR() : null,
+  recognizer: new SR(),
   say(text, opts={}) {
     const s = ZF.getSettings?.() || {};
     if (!s.soundEnabled) return;
@@ -103,4 +108,5 @@ ZF.voice.handleCommand = function(raw){
 document.addEventListener("DOMContentLoaded", ()=>{
   document.getElementById("heroMic")?.addEventListener("click", ()=> ZF.voice.listen());
 });
+} // end guard
 

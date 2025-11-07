@@ -1,3 +1,8 @@
+if (window.ZF_LOADED_SETTINGS) { console.log("settings.js already loaded (skipped)"); }
+else {
+  window.ZF_LOADED_SETTINGS = true;
+// ---- existing settings.js code starts below this line ----
+
 // Loaded: core/settings.js
 console.log("Loaded: core/settings.js");
 window.ZF = window.ZF || {};
@@ -104,3 +109,4 @@ document.addEventListener("DOMContentLoaded", ()=>{
   closeBtn?.addEventListener("click", close);
   document.getElementById("openSettingsQL")?.addEventListener("click", open);
 });
+}

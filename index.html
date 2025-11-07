@@ -5,22 +5,6 @@
   <title>ZoulForge OS</title>
   <link rel="stylesheet" href="style.css">
 
-<script src="core/shadow-reaper.js"></script>
-<script src="core/voice.js"></script>
-<script src="core/settings.js"></script>
-<script src="core/firebase.js"></script>
-
-<script src="features/sos.js"></script>
-<script src="features/tasks.js"></script>
-<script src="features/chat.js"></script>
-<script src="features/ai-modes.js"></script>
-
-<script src="ui/bottom-bar.js"></script>
-<script src="ui/burger-menu.js"></script>
-<script src="ui/animations.js"></script>
-
-<script src="script.js"></script>
-
 </head>
 <script>
   console.log("INDEX OK");
@@ -61,6 +45,17 @@
 
       <div style="display:flex;gap:16px;flex-wrap:wrap">
         <div style="flex:1 1 280px;background:#0f0f14;border:1px solid #1f1f26;border-radius:12px;padding:14px">
+
+          <!-- Zoul Core Orb -->
+            <div id="zoulCore" style="margin:14px 0 22px; display:flex; justify-content:center;">
+              <div class="zf-orb">
+              <div class="zf-ring zf-ring-1"></div>
+              <div class="zf-ring zf-ring-2"></div>
+              <div class="zf-core"></div>
+              <div class="zf-particles" id="zfParticles"></div>
+            </div>
+          </div>
+
           <h3 style="margin:0 0 6px">Zoul Voice</h3>
           <div id="voiceStatus" style="font-size:.95rem;opacity:.85">Idle</div>
           <button id="heroMic" style="margin-top:10px;background:#2a1a44;border:1px solid #4b2d7f;color:#ddd;padding:10px 14px;border-radius:10px;cursor:pointer">🎙️ Start Listening</button>
@@ -142,16 +137,12 @@
   <!-- Bottom bar -->
   <div id="bottomBar"></div>
 
-  <!-- Firebase CDN (before our scripts) -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
 
   <!-- Core & Features -->
   <script src="core/zoul-core.js"></script>
   <script src="core/shadow-reaper.js"></script>
   <script src="core/voice.js"></script>
   <script src="core/settings.js"></script>
-  <script src="core/firebase.js"></script>
 
   <script src="features/sos.js"></script>
   <script src="features/tasks.js"></script>
