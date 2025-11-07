@@ -2,115 +2,87 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ZoulForge — Updates</title>
 <link rel="stylesheet" href="style.css"/>
-</head>
 <body data-page="home">
-  <!-- Settings Drawer (unchanged) -->
+  <!-- Top bar -->
+  <header id="topbar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #222;background:#0a0a0a;position:sticky;top:0;z-index:50">
+    <div style="display:flex;gap:10px;align-items:center">
+      <button id="burgerToggle" class="btn">☰</button>
+      <strong style="color:#b46bff">ZoulForge OS</strong>
+    </div>
+    <div class="row">
+      <span id="userBadge" style="opacity:.85">Guest</span>
+      <button id="googleLoginBtn" class="btn">Sign in</button>
+      <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+    </div>
+  </header>
+
+  <!-- Settings Drawer -->
   <aside id="settingsDrawer" class="zf-drawer">
     <div class="zf-drawer-head"><strong>Settings</strong><button id="closeDrawer" class="btn">✕</button></div>
     <div id="settingsBody" class="zf-drawer-body"></div>
   </aside>
 
-  <div class="app-shell">
-    <!-- Left rail (servers icons) -->
-    <nav class="servers-rail">
-      <div id="nav-home" class="server-btn" title="Home">🏠</div>
-      <div id="nav-chat" class="server-btn" title="Chat">💬</div>
-      <div id="nav-tasks" class="server-btn" title="Tasks">📅</div>
-      <div id="nav-apps" class="server-btn" title="Apps">🪩</div>
-      <div id="nav-updates" class="server-btn" title="Updates">📰</div>
-      <div id="nav-settings" class="server-btn" title="Settings">⚙️</div>
-    </nav>
-
-    <!-- Channels list -->
-    <aside class="channels-panel">
-      <div class="panel-head">
-        <span class="guild-name">ZoulForge</span>
-        <button id="burgerToggle" class="btn">☰</button>
+  <!-- Main -->
+  <main id="app" style="padding:16px 16px 100px">
+    <section id="home-section" style="max-width:960px;margin:24px auto">
+      <!-- Orb -->
+      <div id="zoulCore" style="margin:14px 0 22px; display:flex; justify-content:center;">
+        <div class="zf-orb">
+          <div class="zf-ring zf-ring-1"></div>
+          <div class="zf-ring zf-ring-2"></div>
+          <div class="zf-core"></div>
+          <div class="zf-particles" id="zfParticles"></div>
+        </div>
       </div>
-      <div class="channels-list">
-        <div class="channel" data-link="index.html" data-page="home"># home</div>
-        <div class="channel" data-link="chat.html" data-page="chat"># ai-chat</div>
-        <div class="channel" data-link="tasks.html" data-page="tasks"># planner</div>
-        <div class="channel" data-link="apps.html" data-page="apps"># apps</div>
-        <div class="channel" data-link="updates.html" data-page="updates"># updates</div>
-      </div>
-    </aside>
 
-    <!-- Main content -->
-    <section class="main-content">
-      <div class="mc-head">
-        <div><b>home</b></div>
+      <h1 style="margin:0 0 8px;color:#b46bff;">Welcome to ZoulForge</h1>
+      <p style="margin:0 0 16px;opacity:.85">Say “open chat”, “open tasks”, or “activate shadow reaper”.</p>
+
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1 1 280px" class="panel">
+          <h3 style="margin:0 0 6px">Zoul Voice</h3>
+          <div id="voiceStatus" class="muted">Idle</div>
+          <div id="voiceEQ" class="eq"><span></span><span></span><span></span><span></span><span></span></div>
+          <button id="heroMic" class="btn primary" style="margin-top:10px">🎙️ Start Listening</button>
+        </div>
+
+        <div style="flex:1 1 280px" class="panel">
+          <h3 style="margin:0 0 6px">Quick Links</h3>
+          <div class="row wrap">
+            <button class="quick-link btn" onclick="location.href='chat.html'">💬 Chat</button>
+            <button class="quick-link btn" onclick="location.href='tasks.html'">📅 Tasks</button>
+            <button class="quick-link btn" onclick="location.href='apps.html'">🪩 Apps</button>
+            <button class="quick-link btn" onclick="location.href='updates.html'">📰 Updates</button>
+            <button id="openSettingsQL" class="btn">⚙️ Settings</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <h3 style="margin:0 0 8px">AI OS Quick Chat</h3>
         <div class="row">
-          <span id="userBadge">Guest</span>
-          <button id="googleLoginBtn" class="btn">Sign in</button>
-          <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
-          <button id="bb_mic" class="btn round">🎙️</button>
-        </div>
-      </div>
-      <div class="mc-body">
-        <!-- your hero + orb -->
-        <div id="zoulCore" style="display:flex;justify-content:center;margin:10px 0 20px;">
-          <div class="zf-orb">
-            <div class="zf-ring zf-ring-1"></div>
-            <div class="zf-ring zf-ring-2"></div>
-            <div class="zf-core"></div>
-            <div class="zf-particles" id="zfParticles"></div>
-          </div>
-        </div>
-
-        <h2 style="margin:0 0 8px;color:var(--ds-text)">Welcome to ZoulForge</h2>
-        <p class="muted">Try “open chat”, “open tasks”, or say “activate shadow reaper”.</p>
-
-        <div class="panel" style="margin-top:12px;display:flex;gap:16px;flex-wrap:wrap">
-          <div>
-            <h3 style="margin:0 0 6px">Zoul Voice</h3>
-            <div id="voiceStatus" class="muted">Idle</div>
-            <div id="voiceEQ" class="eq"><span></span><span></span><span></span><span></span><span></span></div>
-            <button id="heroMic" class="btn primary" style="margin-top:8px">🎙️ Start Listening</button>
-          </div>
-        </div>
-
-        <div class="panel" style="margin-top:12px">
-          <h3 style="margin:0 0 8px">AI OS Quick Chat</h3>
-          <div class="row">
-            <select id="aiSelector" class="input">
-              <option value="zoul">Zoul — Core</option>
-              <option value="veil">Veil — Stealth OS</option>
-              <option value="nythera">Nythera — Creation</option>
-              <option value="abyzor">Abyzor — Destruction</option>
-              <option value="voltrix">Voltrix — Balance</option>
-              <option value="verse">Verse — Life Spirit</option>
-            </select>
-            <button class="btn" onclick="location.href='chat.html'">Open Full Chat →</button>
-          </div>
+          <select id="aiSelector" class="input">
+            <option value="zoul">Zoul — Core</option>
+            <option value="veil">Veil — Stealth OS</option>
+            <option value="nythera">Nythera — Creation</option>
+            <option value="abyzor">Abyzor — Destruction</option>
+            <option value="voltrix">Voltrix — Balance</option>
+            <option value="verse">Verse — Life Spirit</option>
+          </select>
+          <button class="btn" onclick="location.href='chat.html'">Open Full Chat →</button>
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- Right rail (AI presence) -->
-    <aside class="members-rail">
-      <div class="members-head"><b>AI Presence</b></div>
-      <div class="members-list">
-        <div class="member"><span class="dot"></span><span>Zoul (Core)</span></div>
-        <div class="member"><span class="dot"></span><span>Veil</span></div>
-        <div class="member"><span class="dot"></span><span>Nythera</span></div>
-        <div class="member"><span class="dot"></span><span>Voltrix</span></div>
-      </div>
-    </aside>
-  </div>
+  <!-- Bottom bar -->
+  <div id="bottomBar"></div>
 
-  <!-- (Keep drawer closed on load) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const drawer = document.getElementById("settingsDrawer");
-      if (drawer) drawer.style.transform = "translateX(100%)";
-    });
-  </script>
-
-  <!-- Firebase + shared scripts (keep order) -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
 
+  <!-- Shared scripts -->
   <script src="core/zoul-core.js"></script>
   <script src="core/shadow-reaper.js"></script>
   <script src="core/voice.js"></script>
@@ -118,10 +90,18 @@
   <script src="core/firebase.js"></script>
 
   <script src="features/chat.js"></script>
+  <script src="features/tasks.js"></script>
+  <script src="ui/bottom-bar.js"></script>
   <script src="ui/burger-menu.js"></script>
-  <script src="ui/bottom-bar.js"></script> <!-- stays for mobile -->
   <script src="ui/animations.js"></script>
-  <script src="ui/layout.js"></script>
   <script src="script.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const d = document.getElementById("settingsDrawer");
+      if (d) d.style.transform = "translateX(100%)"; // keep closed on load
+    });
+  </script>
 </body>
+
 </html>

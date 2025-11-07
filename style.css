@@ -1,133 +1,36 @@
-/* --- Global reset & viewport fix --- */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: var(--ds-bg, #000);
-  color: var(--ds-text, #eee);
-}
-* { box-sizing: border-box; }
+/* Base */
+html, body { margin:0; padding:0; background:#000; color:#fff; }
+.row{ display:flex; gap:8px; align-items:center }
+.wrap{ flex-wrap:wrap }
+.input{ background:#121218;border:1px solid #232336;color:#ddd;padding:10px;border-radius:10px }
+.btn{ background:#16161b;border:1px solid #242433;color:#ddd;padding:8px 12px;border-radius:10px;cursor:pointer }
+.btn.primary{ background:#2a1a44;border:1px solid #4b2d7f }
+.panel{ border:1px solid #1f1f26;background:#0f0f14;border-radius:12px;padding:12px }
+.chatbox{ border:1px solid #1f1f26;background:#0f0f14;border-radius:12px;padding:10px;height:340px;overflow:auto }
+.muted{ opacity:.75 }
 
-/* Desktop shell = fixed viewport, inner panels scroll */
-.app-shell {
-  height: 100dvh;            /* better than 100vh on modern browsers */
-  height: 100svh;            /* small viewport on mobile */
-  width: 100vw;
-  display: flex;
-  overflow: hidden;          /* prevent page-level extra scroll gap */
-}
-
-/* Scroll only inside these areas */
-.channels-list, .members-list, .mc-body {
-  overflow: auto;
-}
-
-/* On small screens, let the page scroll normally */
-@media (max-width: 768px){
-  html, body { height: auto; }
-  .app-shell { height: auto; display: block; overflow: visible; }
-  .mc-body { padding-bottom: 90px; } /* room for bottom bar */
-}
-
-/* ==== Discord-like palette ==== */
-:root{
-  --ds-blurple:#5865F2;
-  --ds-green:#23A559;
-  --ds-red:#ED4245;
-
-  --ds-bg:#313338;           /* content background */
-  --ds-sidebar:#2B2D31;      /* channels panel */
-  --ds-servers:#1E1F22;      /* left icon rail */
-  --ds-headers:#2B2D31;
-  --ds-stroke:#1F2023;
-  --ds-text:#DBDEE1;
-  --ds-muted:#B5BAC1;
-}
-*{ box-sizing:border-box }
-body{ color:var(--ds-text) }
-
-/* ==== Shell layout ==== */
-.app-shell{ display:flex; height:100vh; width:100vw; overflow:hidden; }
-.servers-rail{
-  width:72px; background:var(--ds-servers); border-right:1px solid var(--ds-stroke);
-  padding:10px 8px; display:flex; flex-direction:column; gap:10px; align-items:center;
-}
-.server-btn{
-  width:48px;height:48px;border-radius:50%;background:#313338;border:1px solid #3a3c41;
-  display:grid;place-items:center;color:#fff;cursor:pointer; transition:.15s;
-}
-.server-btn:hover{ border-color:var(--ds-blurple); transform:translateY(-1px) }
-.server-btn.active{ background:var(--ds-blurple) }
-
-.channels-panel{
-  width:260px; background:var(--ds-sidebar); border-right:1px solid var(--ds-stroke);
-  display:flex; flex-direction:column; min-width:220px;
-}
-.panel-head{
-  height:48px; display:flex; align-items:center; justify-content:space-between;
-  padding:0 12px; border-bottom:1px solid var(--ds-stroke); background:var(--ds-headers);
-}
-.guild-name{ font-weight:700 }
-.channels-list{ padding:10px; overflow:auto; display:flex; flex-direction:column; gap:6px }
-.channel{
-  padding:8px 10px; border-radius:8px; cursor:pointer; color:var(--ds-muted);
-}
-.channel:hover{ background:#36383d; color:var(--ds-text) }
-.channel.active{ background:#3f4147; color:#fff }
-
-.main-content{
-  flex:1; display:flex; flex-direction:column; background:var(--ds-bg);
-}
-.mc-head{
-  height:48px; display:flex; align-items:center; justify-content:space-between;
-  padding:0 14px; border-bottom:1px solid var(--ds-stroke); background:var(--ds-headers);
-}
-.mc-body{ flex:1; overflow:auto; padding:16px; }
-
-/* Right sidebar (members/AI presence) */
-.members-rail{
-  width:280px; background:var(--ds-sidebar); border-left:1px solid var(--ds-stroke);
+/* Drawer */
+.zf-drawer{
+  position:fixed; inset:0 0 0 auto; width:340px; background:#0c0c0f;
+  border-left:1px solid #1f1f26; transform:translateX(100%); transition:.25s; z-index:60;
   display:flex; flex-direction:column;
 }
-.members-head{ height:48px; display:flex; align-items:center; padding:0 12px; border-bottom:1px solid var(--ds-stroke) }
-.members-list{ padding:10px; overflow:auto; display:flex; flex-direction:column; gap:8px }
-.member{ display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:8px; }
-.member .dot{ width:8px;height:8px;border-radius:50%; background:var(--ds-green) }
+.zf-drawer-head{ padding:14px 16px; border-bottom:1px solid #1f1f26; display:flex; justify-content:space-between; align-items:center }
+.zf-drawer-body{ padding:14px 16px; display:flex; flex-direction:column; gap:14px; overflow:auto }
 
-/* Inputs & buttons matching Discord vibe */
-.input{ background:#1E1F22;border:1px solid #2b2d31;color:#ddd }
-.btn{ background:#1E1F22;border:1px solid #2b2d31 }
-.btn.primary{ background:var(--ds-blurple); border-color:#4957f0 }
-
-/* Chat box style update */
-.chatbox{ background:#1E1F22; border:1px solid #2b2d31 }
-
-/* --- Bottom bar: always visible & fixed --- */
+/* Bottom bar (always visible) */
 #bottomBar{
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  height: 72px;
-  background: #0b0b0f;
-  border-top: 1px solid #1f1f26;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 60;
+  position:fixed; left:0; right:0; bottom:0; height:72px;
+  background:#0b0b0f; border-top:1px solid #1f1f26;
+  display:flex; justify-content:space-around; align-items:center; z-index:60;
 }
-
-/* Buttons */
 #bottomBar .bb-btn{
-  background:#16161b;
-  border:1px solid #242433;
-  color:#ddd;
-  padding:10px 14px;
-  border-radius:12px;
-  cursor:pointer;
+  background:#16161b; border:1px solid #242433; color:#ddd;
+  padding:10px 14px; border-radius:12px; cursor:pointer;
 }
-#bottomBar .bb-btn.round{ border-radius:50%; padding:12px 16px; }
+#bottomBar .bb-btn.round{ border-radius:50%; padding:12px 16px }
 
-/* Give main content space so it doesn't hide behind bar */
-.mc-body { padding-bottom: 90px; }
+/* Give main content room above the fixed bar */
+main#app{ padding-bottom:100px }
 
-
-/* Settings drawer still slides over */
+/* Orb + animations + eq — keep what you already added earlier */
