@@ -39,15 +39,7 @@ if (ZF.voice.recognizer) {
   r.lang = "en-US";
   r.interimResults = false;
   r.maxAlternatives = 1;
-
-  r.onstart = ()=>{
-    const el = voiceStatusEl(); if (el) el.textContent = "Listening…";
-    micButtons().forEach(b=> b.style.boxShadow = "0 0 16px rgba(180,107,255,.35)");
-  };
-  r.onend = ()=>{
-    const el = voiceStatusEl(); if (el) el.textContent = "Idle";
-    micButtons().forEach(b=> b.style.boxShadow = "none");
-  };
+  
   r.onresult = (e)=>{
     const text = e.results[0][0].transcript.trim();
     const el = voiceStatusEl(); if (el) el.textContent = `Heard: “${text}”`;

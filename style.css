@@ -26,3 +26,103 @@ body {
   top: 0;
   left: 0;
 }
+
+:root{
+  --zf-primary:#b46bff;
+  --zf-bg:#0a0016;
+  --zf-ring:#6f3aff;
+  --zf-core:#d9c3ff;
+  --zf-danger:#ff5a6b;
+}
+
+/* THEME TINTS (auto-switched by zoul-core.js via data-theme) */
+body[data-theme="veil"] { --zf-primary:#9fa6ff; --zf-ring:#5a6bff; --zf-core:#cfd3ff; --zf-bg:#07070a; }
+body[data-theme="verse"]{ --zf-primary:#70ffb6; --zf-ring:#3fff96; --zf-core:#dcfff0; --zf-bg:#00160a; }
+body[data-theme="voltrix"]{ --zf-primary:#5df2ff; --zf-ring:#30d7ff; --zf-core:#c8f6ff; --zf-bg:#001216; }
+body[data-theme="abyzor"]{ --zf-primary:#ff6a6a; --zf-ring:#ff3d3d; --zf-core:#ffd2d2; --zf-bg:#160000; }
+body[data-theme="nythera"]{ --zf-primary:#ffe36a; --zf-ring:#ffd23a; --zf-core:#fff1c9; --zf-bg:#161200; }
+
+body { transition: background 400ms ease; }
+
+/* ZOUL CORE ORB */
+.zf-orb{
+  position:relative;
+  width: 200px; height:200px;
+  filter: drop-shadow(0 0 16px rgba(180,107,255,.25));
+}
+.zf-core{
+  position:absolute; inset:40px;
+  border-radius:50%;
+  background: radial-gradient(circle at 35% 35%, var(--zf-core), rgba(255,255,255,.1) 40%, rgba(255,255,255,0) 60%),
+              radial-gradient(circle at 65% 65%, rgba(255,255,255,.15), rgba(255,255,255,0) 50%);
+  box-shadow: inset 0 0 22px rgba(255,255,255,.35), 0 0 30px rgba(180,107,255,.25);
+  animation: corePulse 3s ease-in-out infinite;
+}
+@keyframes corePulse{
+  0%,100%{ transform: scale(1); box-shadow: inset 0 0 22px rgba(255,255,255,.35), 0 0 30px rgba(180,107,255,.25); }
+  50%{ transform: scale(1.035); box-shadow: inset 0 0 28px rgba(255,255,255,.5), 0 0 42px rgba(180,107,255,.35); }
+}
+.zf-ring{
+  position:absolute; inset:0;
+  border-radius:50%;
+  border: 2px solid transparent;
+  border-top-color: var(--zf-ring);
+  border-right-color: rgba(255,255,255,.08);
+  mix-blend-mode: screen;
+}
+.zf-ring-1{ animation: spin 8s linear infinite; }
+.zf-ring-2{ transform: rotate(25deg); animation: spinReverse 11s linear infinite; }
+@keyframes spin{ to { transform: rotate(360deg); } }
+@keyframes spinReverse{ to { transform: rotate(-335deg); } }
+
+/* particles */
+.zf-particles{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.zf-particle{
+  position:absolute; width:6px; height:6px; border-radius:50%;
+  background: var(--zf-primary);
+  box-shadow: 0 0 10px var(--zf-primary);
+  opacity:.9;
+  animation: float 3s ease-in-out forwards;
+}
+@keyframes float{
+  0%{ transform: translate(0,0) scale(.8); opacity:.0; }
+  10%{ opacity:.9; }
+  100%{ transform: translate(var(--dx), var(--dy)) scale(1.1); opacity:0; }
+}
+
+/* Voice EQ (five bars) */
+.eq{ display:flex; gap:4px; margin-top:8px; height:16px; align-items:flex-end; }
+.eq span{
+  width:6px; height:6px; background: var(--zf-primary); border-radius:2px;
+  transform-origin: bottom center;
+  opacity:.8;
+}
+body.zf-listening .eq span:nth-child(1){ animation: bars 700ms ease-in-out infinite; }
+body.zf-listening .eq span:nth-child(2){ animation: bars 680ms ease-in-out infinite; }
+body.zf-listening .eq span:nth-child(3){ animation: bars 720ms ease-in-out infinite; }
+body.zf-listening .eq span:nth-child(4){ animation: bars 650ms ease-in-out infinite; }
+body.zf-listening .eq span:nth-child(5){ animation: bars 760ms ease-in-out infinite; }
+@keyframes bars{
+  0%,100%{ height:6px; }
+  50%{ height:16px; }
+}
+
+/* Mic glow on listening */
+body.zf-listening #bb_mic, body.zf-listening #heroMic{
+  box-shadow: 0 0 16px rgba(180,107,255,.4), 0 0 32px rgba(180,107,255,.2);
+  border-color: var(--zf-primary) !important;
+}
+
+/* Chat typing dots */
+.typing{
+  display:inline-block; padding:6px 10px; border-radius:10px;
+  background:#15151b; border:1px solid #242433; color:#bbb;
+}
+.typing .dot{ display:inline-block; width:6px; height:6px; border-radius:50%; background:#bbb; margin:0 2px; opacity:.6; }
+.typing .dot:nth-child(1){ animation: td 1s infinite; }
+.typing .dot:nth-child(2){ animation: td 1s .15s infinite; }
+.typing .dot:nth-child(3){ animation: td 1s .3s infinite; }
+@keyframes td{
+  0%,100%{ transform: translateY(0); opacity:.4; }
+  50%{ transform: translateY(-3px); opacity:1; }
+}
