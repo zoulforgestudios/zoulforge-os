@@ -24,6 +24,8 @@ ZF.voice = {
     u.voice = vs.find(v=>v.lang?.startsWith("en")) || vs[0];
     speechSynthesis.cancel();
     speechSynthesis.speak(u);
+    r.continuous = true; // keep stream open if allowed
+
   },
   listen() {
     const s = ZF.getSettings?.() || {};
@@ -39,13 +41,29 @@ if (ZF.voice.recognizer) {
   r.lang = "en-US";
   r.interimResults = false;
   r.maxAlternatives = 1;
-  
-  r.onresult = (e)=>{
-    const text = e.results[0][0].transcript.trim();
-    const el = voiceStatusEl(); if (el) el.textContent = `Heard: “${text}”`;
-    window.dispatchEvent(new CustomEvent("voice:heard", { detail: text }));
-    ZF.voice.handleCommand(text);
+
+  r.onend = ()=>{
+  const el = voiceStatusEl(); if (el) el.textContent = "Idle";
+  document.body.classList.remove("zf-listening");
+  micButtons().forEach(b=> b.style.boxShadow = "none");
+  const s = ZF.getSettings?.() || {};
+  // auto-restart if hot mic enabled
+  if (s.hotMicEnabled) { try { r.start(); } catch{} }
   };
+
+  r.onresult = (e)=>{
+  const text = e.results[0][0].transcript.trim();
+  const lower = text.toLowerCase();
+  const el = voiceStatusEl(); if (el) el.textContent = `Heard: “${text}”`;
+  const s = ZF.getSettings?.() || {};
+  if (s.wakeWordEnabled && lower === "zoul") {
+    ZF.voice.say("Online.");
+    return; // “zoul” used as wake/ack
+  }
+  window.dispatchEvent(new CustomEvent("voice:heard", { detail: text }));
+  ZF.voice.handleCommand(text);
+};
+
   r.onerror = (e)=>{
     const el = voiceStatusEl(); if (el) el.textContent = `Voice error: ${e.error}`;
   };

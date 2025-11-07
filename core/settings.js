@@ -8,6 +8,10 @@ console.log("Loaded: core/settings.js");
 window.ZF = window.ZF || {};
 
 const DEFAULT_SETTINGS = {
+  holoAppsEnabled: true,
+  socialFeedEnabled: true,
+  wakeWordEnabled: true,
+  hotMicEnabled: false,
   voiceEnabled: true,
   aiChatEnabled: true,
   plannerEnabled: true,
@@ -28,6 +32,10 @@ ZF.getSettings = ()=> {
 ZF.saveSettings = (next)=> localStorage.setItem(SETTINGS_KEY, JSON.stringify(next));
 
 function buildSettingsUI(){
+
+       {t("wakeWordEnabled","Wake word: “zoul”")} 
+       {t("hotMicEnabled","Hot Mic (continuous listening)")}
+
   const host = document.getElementById("settingsBody");
   if (!host) return;
 

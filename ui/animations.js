@@ -41,3 +41,36 @@ window.ZF = window.ZF || {};
     if (e?.detail?.key === "theme") apply();
   });
 })();
+
+// core burst when switching AI
+(function coreBursts(){
+  function burst(color){
+    const orb = document.querySelector(".zf-orb"); if(!orb) return;
+    const ring = document.createElement("div");
+    ring.style.position="absolute";
+    ring.style.inset="20px";
+    ring.style.borderRadius="50%";
+    ring.style.border=`2px solid ${color}`;
+    ring.style.boxShadow=`0 0 18px ${color}`;
+    ring.style.opacity="0.9";
+    orb.appendChild(ring);
+    ring.animate([
+      { transform:"scale(0.8)", opacity:0.9 },
+      { transform:"scale(1.25)", opacity:0 }
+    ], { duration: 700, easing:"cubic-bezier(.2,.6,.2,1)" }).onfinish=()=> ring.remove();
+  }
+
+  const themeColor = ()=>{
+    const cs = getComputedStyle(document.body);
+    return cs.getPropertyValue("--zf-primary")?.trim() || "#b46bff";
+  };
+
+  window.addEventListener("ai:switch", (e)=>{
+    burst(themeColor());
+  });
+  window.addEventListener("ai:xmode", ()=>{
+    // triple burst
+    const c = themeColor();
+    burst(c); setTimeout(()=>burst(c),130); setTimeout(()=>burst(c),260);
+  });
+})();
