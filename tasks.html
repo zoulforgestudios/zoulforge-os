@@ -2,52 +2,126 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ZoulForge — Tasks</title>
 <link rel="stylesheet" href="style.css"/>
-</head><body data-page="tasks">
-<header class="zf-top">
-  <a class="zf-logo" href="index.html">ZoulForge</a>
-  <div class="zf-actions">
-    <button id="burgerToggle" class="btn">☰</button>
-    <span id="userBadge">Guest</span>
-    <button id="googleLoginBtn" class="btn">Sign in</button>
-    <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+</head>
+<body data-page="home">
+  <!-- Settings Drawer (unchanged) -->
+  <aside id="settingsDrawer" class="zf-drawer">
+    <div class="zf-drawer-head"><strong>Settings</strong><button id="closeDrawer" class="btn">✕</button></div>
+    <div id="settingsBody" class="zf-drawer-body"></div>
+  </aside>
+
+  <div class="app-shell">
+    <!-- Left rail (servers icons) -->
+    <nav class="servers-rail">
+      <div id="nav-home" class="server-btn" title="Home">🏠</div>
+      <div id="nav-chat" class="server-btn" title="Chat">💬</div>
+      <div id="nav-tasks" class="server-btn" title="Tasks">📅</div>
+      <div id="nav-apps" class="server-btn" title="Apps">🪩</div>
+      <div id="nav-updates" class="server-btn" title="Updates">📰</div>
+      <div id="nav-settings" class="server-btn" title="Settings">⚙️</div>
+    </nav>
+
+    <!-- Channels list -->
+    <aside class="channels-panel">
+      <div class="panel-head">
+        <span class="guild-name">ZoulForge</span>
+        <button id="burgerToggle" class="btn">☰</button>
+      </div>
+      <div class="channels-list">
+        <div class="channel" data-link="index.html" data-page="home"># home</div>
+        <div class="channel" data-link="chat.html" data-page="chat"># ai-chat</div>
+        <div class="channel" data-link="tasks.html" data-page="tasks"># planner</div>
+        <div class="channel" data-link="apps.html" data-page="apps"># apps</div>
+        <div class="channel" data-link="updates.html" data-page="updates"># updates</div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <section class="main-content">
+      <div class="mc-head">
+        <div><b>home</b></div>
+        <div class="row">
+          <span id="userBadge">Guest</span>
+          <button id="googleLoginBtn" class="btn">Sign in</button>
+          <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+          <button id="bb_mic" class="btn round">🎙️</button>
+        </div>
+      </div>
+      <div class="mc-body">
+        <!-- your hero + orb -->
+        <div id="zoulCore" style="display:flex;justify-content:center;margin:10px 0 20px;">
+          <div class="zf-orb">
+            <div class="zf-ring zf-ring-1"></div>
+            <div class="zf-ring zf-ring-2"></div>
+            <div class="zf-core"></div>
+            <div class="zf-particles" id="zfParticles"></div>
+          </div>
+        </div>
+
+        <h2 style="margin:0 0 8px;color:var(--ds-text)">Welcome to ZoulForge</h2>
+        <p class="muted">Try “open chat”, “open tasks”, or say “activate shadow reaper”.</p>
+
+        <div class="panel" style="margin-top:12px;display:flex;gap:16px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0 0 6px">Zoul Voice</h3>
+            <div id="voiceStatus" class="muted">Idle</div>
+            <div id="voiceEQ" class="eq"><span></span><span></span><span></span><span></span><span></span></div>
+            <button id="heroMic" class="btn primary" style="margin-top:8px">🎙️ Start Listening</button>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <h3 style="margin:0 0 8px">AI OS Quick Chat</h3>
+          <div class="row">
+            <select id="aiSelector" class="input">
+              <option value="zoul">Zoul — Core</option>
+              <option value="veil">Veil — Stealth OS</option>
+              <option value="nythera">Nythera — Creation</option>
+              <option value="abyzor">Abyzor — Destruction</option>
+              <option value="voltrix">Voltrix — Balance</option>
+              <option value="verse">Verse — Life Spirit</option>
+            </select>
+            <button class="btn" onclick="location.href='chat.html'">Open Full Chat →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right rail (AI presence) -->
+    <aside class="members-rail">
+      <div class="members-head"><b>AI Presence</b></div>
+      <div class="members-list">
+        <div class="member"><span class="dot"></span><span>Zoul (Core)</span></div>
+        <div class="member"><span class="dot"></span><span>Veil</span></div>
+        <div class="member"><span class="dot"></span><span>Nythera</span></div>
+        <div class="member"><span class="dot"></span><span>Voltrix</span></div>
+      </div>
+    </aside>
   </div>
-</header>
 
-<aside id="settingsDrawer" class="zf-drawer"><div class="zf-drawer-head">
-  <strong>Settings</strong><button id="closeDrawer" class="btn">✕</button>
-</div><div id="settingsBody" class="zf-drawer-body"></div></aside>
+  <!-- (Keep drawer closed on load) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const drawer = document.getElementById("settingsDrawer");
+      if (drawer) drawer.style.transform = "translateX(100%)";
+    });
+  </script>
 
-<main class="zf-main">
-  <section class="container">
-    <h1>Task Planner</h1>
-    <form id="taskForm" class="row wrap">
-      <input id="taskTitle" class="input" placeholder="Task title" required/>
-      <input id="taskDate" type="date" class="input"/>
-      <input id="taskTime" type="time" class="input"/>
-      <select id="taskPriority" class="input">
-        <option value="low">Low</option><option value="normal" selected>Normal</option><option value="high">High</option>
-      </select>
-      <button class="btn">Add</button>
-    </form>
-    <div id="taskList" class="panel">No tasks yet</div>
-  </section>
-</main>
+  <!-- Firebase + shared scripts (keep order) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
 
-<div id="bottomBar"></div>
+  <script src="core/zoul-core.js"></script>
+  <script src="core/shadow-reaper.js"></script>
+  <script src="core/voice.js"></script>
+  <script src="core/settings.js"></script>
+  <script src="core/firebase.js"></script>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
-
-<script src="core/zoul-core.js"></script>
-<script src="core/shadow-reaper.js"></script>
-<script src="core/voice.js"></script>
-<script src="core/settings.js"></script>
-<script src="core/firebase.js"></script>
-
-<script src="features/tasks.js"></script>
-<script src="ui/bottom-bar.js"></script>
-<script src="ui/burger-menu.js"></script>
-<script src="ui/animations.js"></script>
-<script src="script.js"></script>
-</body></html>
+  <script src="features/chat.js"></script>
+  <script src="ui/burger-menu.js"></script>
+  <script src="ui/bottom-bar.js"></script> <!-- stays for mobile -->
+  <script src="ui/animations.js"></script>
+  <script src="ui/layout.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
