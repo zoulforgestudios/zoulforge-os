@@ -4,6 +4,27 @@
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body data-page="home">
+  <div id="burgerMenu" aria-hidden="true">
+  <div class="bm-overlay"></div>
+  <nav class="bm-panel">
+    <div class="bm-head">
+      <span class="bm-title">ZoulForge</span>
+      <button id="bmClose" class="btn">✕</button>
+    </div>
+    <div class="bm-list">
+      <div class="bm-item" data-link="index.html">🏠 Home</div>
+      <div class="bm-item" data-link="chat.html">💬 Chat</div>
+      <div class="bm-item" data-link="tasks.html">📅 Tasks</div>
+      <div class="bm-item" data-link="apps.html">🪩 Apps</div>
+      <div class="bm-item" data-link="updates.html">📰 Updates</div>
+      <div class="bm-item" data-link="ais.html">🧬 AIs</div>
+    </div>
+    <div class="bm-footer">
+      <button id="bmSettings" class="btn">⚙️ Settings</button>
+    </div>
+  </nav>
+</div>
+
   <!-- Burger Menu -->
 <div id="burgerMenu" aria-hidden="true">
   <div class="bm-overlay"></div>

@@ -1,4 +1,12 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en">
+    <div class="gpt-topbar">
+  <div class="gpt-title">ZoulForge</div>
+  <div class="gpt-actions">
+    <button id="burgerToggle" class="btn">☰</button>
+    <button id="bb_mic" class="btn">🎙️</button>
+  </div>
+</div>
+<head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ZoulForge — AIs</title>
 <link rel="stylesheet" href="style.css">
@@ -121,4 +129,18 @@
     location.href = "chat.html";
   }
 </script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+
+<script src="core/zoul-core.js"></script>
+<script src="core/shadow-reaper.js"></script>
+<script src="core/voice.js"></script>
+<script src="core/settings.js"></script>
+<script src="core/firebase.js"></script>
+
+<script src="features/chat.js"></script>
+<script src="ui/animations.js"></script>
+<script src="ui/burger-menu.js"></script>
+<script src="script.js"></script>
+
 </body></html>

@@ -1,10 +1,38 @@
 <!DOCTYPE html><html lang="en">
-  <button id="burgerToggle" class="btn">☰</button>
+<div class="gpt-topbar">
+  <div class="gpt-title">ZoulForge</div>
+  <div class="gpt-actions">
+    <button id="burgerToggle" class="btn">☰</button>
+    <button id="bb_mic" class="btn">🎙️</button>
+  </div>
+</div>
+
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ZoulForge — Updates</title>
 <link rel="stylesheet" href="style.css"/>
 <body data-page="home">
+  <div id="burgerMenu" aria-hidden="true">
+  <div class="bm-overlay"></div>
+  <nav class="bm-panel">
+    <div class="bm-head">
+      <span class="bm-title">ZoulForge</span>
+      <button id="bmClose" class="btn">✕</button>
+    </div>
+    <div class="bm-list">
+      <div class="bm-item" data-link="index.html">🏠 Home</div>
+      <div class="bm-item" data-link="chat.html">💬 Chat</div>
+      <div class="bm-item" data-link="tasks.html">📅 Tasks</div>
+      <div class="bm-item" data-link="apps.html">🪩 Apps</div>
+      <div class="bm-item" data-link="updates.html">📰 Updates</div>
+      <div class="bm-item" data-link="ais.html">🧬 AIs</div>
+    </div>
+    <div class="bm-footer">
+      <button id="bmSettings" class="btn">⚙️ Settings</button>
+    </div>
+  </nav>
+</div>
+
   <!-- Burger Menu -->
 <div id="burgerMenu" aria-hidden="true">
   <div class="bm-overlay"></div>
@@ -131,6 +159,20 @@
       if (d) d.style.transform = "translateX(100%)"; // keep closed on load
     });
   </script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+
+<script src="core/zoul-core.js"></script>
+<script src="core/shadow-reaper.js"></script>
+<script src="core/voice.js"></script>
+<script src="core/settings.js"></script>
+<script src="core/firebase.js"></script>
+
+<script src="features/chat.js"></script>
+<script src="ui/animations.js"></script>
+<script src="ui/burger-menu.js"></script>
+<script src="script.js"></script>
+
 </body>
 
 </html>
