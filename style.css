@@ -76,3 +76,36 @@ body.zf-listening .eq span:nth-child(3){animation:bars 720ms ease-in-out infinit
 body.zf-listening .eq span:nth-child(4){animation:bars 650ms ease-in-out infinite}
 body.zf-listening .eq span:nth-child(5){animation:bars 760ms ease-in-out infinite}
 @keyframes bars{0%,100%{height:6px}50%{height:16px}}
+
+/* Burger menu (left drawer) */
+#burgerMenu{ position:fixed; inset:0; z-index:70; pointer-events:none; }
+#burgerMenu.open{ pointer-events:auto; }
+
+.bm-overlay{
+  position:absolute; inset:0; background:rgba(0,0,0,.45);
+  opacity:0; transition:opacity .2s ease;
+}
+#burgerMenu.open .bm-overlay{ opacity:1; }
+
+.bm-panel{
+  position:absolute; top:0; left:0; height:100%;
+  width: 300px; max-width: 86vw;
+  background:#0c0f14; border-right:1px solid var(--stroke);
+  transform: translateX(-100%); transition: transform .25s ease;
+  display:flex; flex-direction:column;
+}
+#burgerMenu.open .bm-panel{ transform: translateX(0%); }
+
+.bm-head{ height:56px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 14px; border-bottom:1px solid var(--stroke); background:var(--panel); }
+.bm-title{ font-weight:700 }
+
+.bm-list{ padding:10px; display:flex; flex-direction:column; gap:8px; overflow:auto; }
+.bm-item{
+  display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
+  color:var(--muted); border:1px solid transparent; cursor:pointer;
+}
+.bm-item:hover{ background:var(--chip); border-color:var(--stroke); color:var(--text); }
+.bm-item.active{ background:var(--chip); border-color:var(--stroke); color:var(--text); }
+
+.bm-footer{ margin-top:auto; padding:10px; border-top:1px solid var(--stroke); display:flex; flex-direction:column; gap:8px; }

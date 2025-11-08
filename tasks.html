@@ -1,9 +1,38 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en">
+  <button id="burgerToggle" class="btn">☰</button>
+<head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ZoulForge — Tasks</title>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body data-page="home">
+  <!-- Burger Menu -->
+<div id="burgerMenu" aria-hidden="true">
+  <div class="bm-overlay"></div>
+  <nav class="bm-panel" role="menu">
+    <div class="bm-head">
+      <span class="bm-title">ZoulForge</span>
+      <button id="bmClose" class="btn">✕</button>
+    </div>
+    <div class="bm-list">
+      <div class="bm-item" data-link="index.html">🏠 Home</div>
+      <div class="bm-item" data-link="chat.html">💬 Chat</div>
+      <div class="bm-item" data-link="tasks.html">📅 Tasks</div>
+      <div class="bm-item" data-link="apps.html">🪩 Apps</div>
+      <div class="bm-item" data-link="updates.html">📰 Updates</div>
+      <div class="bm-item" data-link="ais.html">🧬 AIs</div>
+    </div>
+    <div class="bm-footer">
+      <button id="bmSettings" class="btn">⚙️ Settings</button>
+      <div class="tiny">Signed in as <span id="userBadge">Guest</span></div>
+      <div class="row" style="gap:6px">
+        <button id="googleLoginBtn" class="btn">Sign in</button>
+        <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+      </div>
+    </div>
+  </nav>
+</div>
+
   <!-- Top bar -->
   <header id="topbar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #222;background:#0a0a0a;position:sticky;top:0;z-index:50">
     <div style="display:flex;gap:10px;align-items:center">
