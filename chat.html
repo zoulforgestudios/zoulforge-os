@@ -1,68 +1,35 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ZoulForge — Chat</title>
-<link rel="stylesheet" href="style.css"/>
-</head>
-<body data-page="home">
-  <!-- Top bar -->
-  <header id="topbar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #222;background:#0a0a0a;position:sticky;top:0;z-index:50">
-    <div style="display:flex;gap:10px;align-items:center">
-      <button id="burgerToggle" class="btn">☰</button>
-      <strong style="color:#b46bff">ZoulForge OS</strong>
-    </div>
-    <div class="row">
-      <span id="userBadge" style="opacity:.85">Guest</span>
-      <button id="googleLoginBtn" class="btn">Sign in</button>
-      <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
-    </div>
-  </header>
-
-  <!-- Settings Drawer -->
+<body data-page="chat">
   <aside id="settingsDrawer" class="zf-drawer">
     <div class="zf-drawer-head"><strong>Settings</strong><button id="closeDrawer" class="btn">✕</button></div>
     <div id="settingsBody" class="zf-drawer-body"></div>
   </aside>
 
-  <!-- Main -->
-  <main id="app" style="padding:16px 16px 100px">
-    <section id="home-section" style="max-width:960px;margin:24px auto">
-      <!-- Orb -->
-      <div id="zoulCore" style="margin:14px 0 22px; display:flex; justify-content:center;">
-        <div class="zf-orb">
-          <div class="zf-ring zf-ring-1"></div>
-          <div class="zf-ring zf-ring-2"></div>
-          <div class="zf-core"></div>
-          <div class="zf-particles" id="zfParticles"></div>
-        </div>
+  <div class="gpt-shell">
+    <aside class="gpt-sidebar">
+      <button class="new-chat" onclick="location.reload()">＋ New chat</button>
+      <div class="gpt-nav">
+        <div class="gpt-item" onclick="location.href='index.html'">🏠 Home</div>
+        <div class="gpt-item active">💬 Chat</div>
+        <div class="gpt-item" onclick="location.href='tasks.html'">📅 Tasks</div>
+        <div class="gpt-item" onclick="location.href='apps.html'">🪩 Apps</div>
+        <div class="gpt-item" onclick="location.href='updates.html'">📰 Updates</div>
       </div>
-
-      <h1 style="margin:0 0 8px;color:#b46bff;">Welcome to ZoulForge</h1>
-      <p style="margin:0 0 16px;opacity:.85">Say “open chat”, “open tasks”, or “activate shadow reaper”.</p>
-
-      <div style="display:flex;gap:16px;flex-wrap:wrap">
-        <div style="flex:1 1 280px" class="panel">
-          <h3 style="margin:0 0 6px">Zoul Voice</h3>
-          <div id="voiceStatus" class="muted">Idle</div>
-          <div id="voiceEQ" class="eq"><span></span><span></span><span></span><span></span><span></span></div>
-          <button id="heroMic" class="btn primary" style="margin-top:10px">🎙️ Start Listening</button>
-        </div>
-
-        <div style="flex:1 1 280px" class="panel">
-          <h3 style="margin:0 0 6px">Quick Links</h3>
-          <div class="row wrap">
-            <button class="quick-link btn" onclick="location.href='chat.html'">💬 Chat</button>
-            <button class="quick-link btn" onclick="location.href='tasks.html'">📅 Tasks</button>
-            <button class="quick-link btn" onclick="location.href='apps.html'">🪩 Apps</button>
-            <button class="quick-link btn" onclick="location.href='updates.html'">📰 Updates</button>
-            <button id="openSettingsQL" class="btn">⚙️ Settings</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel" style="margin-top:12px">
-        <h3 style="margin:0 0 8px">AI OS Quick Chat</h3>
+      <div class="gpt-spacer"></div>
+      <div class="gpt-footer">
+        <button id="openSettingsQL" class="btn">⚙️ Settings</button>
+        <div class="tiny">Signed in as <span id="userBadge">Guest</span></div>
         <div class="row">
-          <select id="aiSelector" class="input">
+          <button id="googleLoginBtn" class="btn">Sign in</button>
+          <button id="googleLogoutBtn" class="btn" style="display:none">Sign out</button>
+        </div>
+      </div>
+    </aside>
+
+    <section class="gpt-main">
+      <div class="gpt-topbar">
+        <div class="gpt-title">Chat</div>
+        <div class="gpt-actions">
+          <select id="aiSelector" class="btn" style="background:#0e121a;border-color:var(--stroke)">
             <option value="zoul">Zoul — Core</option>
             <option value="veil">Veil — Stealth OS</option>
             <option value="nythera">Nythera — Creation</option>
@@ -70,38 +37,43 @@
             <option value="voltrix">Voltrix — Balance</option>
             <option value="verse">Verse — Life Spirit</option>
           </select>
-          <button class="btn" onclick="location.href='chat.html'">Open Full Chat →</button>
+          <button id="aiMic" class="btn">🎙️</button>
+          <button id="burgerToggle" class="btn">☰</button>
+        </div>
+      </div>
+
+      <!-- Message list -->
+      <div class="gpt-scroll" id="chatBox">
+        <div class="msg assistant"><div class="avatar"></div><div class="bubble">Zoul online. How can I help?</div></div>
+      </div>
+
+      <!-- Composer -->
+      <div class="composer-wrap">
+        <div class="composer">
+          <input id="userInput" placeholder="Message ZoulForge…"/>
+          <button id="sendBtn" class="btn primary">Send</button>
         </div>
       </div>
     </section>
-  </main>
+  </div>
 
-  <!-- Bottom bar -->
-  <div id="bottomBar"></div>
-
-  <!-- Firebase -->
+  <!-- Firebase + scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
-
-  <!-- Shared scripts -->
   <script src="core/zoul-core.js"></script>
   <script src="core/shadow-reaper.js"></script>
   <script src="core/voice.js"></script>
   <script src="core/settings.js"></script>
   <script src="core/firebase.js"></script>
-
   <script src="features/chat.js"></script>
-  <script src="features/tasks.js"></script>
-  <script src="ui/bottom-bar.js"></script>
-  <script src="ui/burger-menu.js"></script>
   <script src="ui/animations.js"></script>
   <script src="script.js"></script>
-
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", ()=>{
       const d = document.getElementById("settingsDrawer");
-      if (d) d.style.transform = "translateX(100%)"; // keep closed on load
+      if (d) d.style.transform = "translateX(100%)";
+      document.getElementById("openSettingsQL")?.addEventListener("click", ()=> d.style.transform="translateX(0%)");
+      document.getElementById("aiMic")?.addEventListener("click", ()=> ZF.voice.listen());
     });
   </script>
 </body>
-</html>

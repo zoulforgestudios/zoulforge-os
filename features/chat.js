@@ -1,6 +1,17 @@
 // Loaded: features/chat.js
 console.log("Loaded: features/chat.js");
 
+function addMessage(sender, text){
+  const box = document.getElementById("chatBox");
+  const wrap = document.createElement("div");
+  wrap.className = "msg " + (sender === "user" ? "user" : "assistant");
+  wrap.innerHTML = `<div class="avatar"></div><div class="bubble"></div>`;
+  wrap.querySelector(".bubble").textContent = text;
+  box.appendChild(wrap);
+  box.scrollTop = box.scrollHeight;
+}
+
+
 (function chatVoiceBridge(){
   const input = document.getElementById("userInput");
   const send = document.getElementById("sendBtn");
